@@ -9,6 +9,12 @@ os.makedirs("captcha_processing/preprocessing/processed", exist_ok=True)
 
 def process_images(origin_folder, destination_folder="captcha_processing/preprocessing/processed"):
     files = glob.glob(f"{origin_folder}/*")
+    if not files:
+        raise NotImplementedError(
+            "Not found any images on dir 'captcha_processing/preprocessing/bdcaptcha'. "
+            "Make sure you have created this directory and added captcha images into it. "
+            "This is needed to be able to train LLM."
+        )
     for file in files:
         image = cv2.imread(file)
         gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
